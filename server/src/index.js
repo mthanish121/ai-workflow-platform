@@ -21,8 +21,9 @@ app.use(cors({
     if (!origin) return callback(null, true);
     // Allow any localhost port (5173, 5174, 3000, etc.) in development
     const isLocalhost = /^http:\/\/localhost:\d+$/.test(origin);
+    const isVercel = /\.vercel\.app$/.test(origin);
     const allowedOrigin = process.env.CLIENT_URL || 'http://localhost:5173';
-    if (isLocalhost || origin === allowedOrigin) {
+    if (isLocalhost || isVercel || origin === allowedOrigin) {
       return callback(null, true);
     }
     callback(new Error(`CORS: Origin ${origin} not allowed`));
